@@ -12,6 +12,7 @@ let today = new Date()
 let currMonth = today.getMonth()
 let currYear = today.getFullYear()
 let currDate = today.getDate()
+let currSelected = null
 
 let calendar = document.getElementsByClassName("calendar")[0]
 
@@ -25,7 +26,20 @@ let prevbtn = document.getElementsByClassName("btn-prev")[0]
 let nextbtn = document.getElementsByClassName("btn-next")[0]
 let todaybtn = document.getElementsByClassName("btn-today")[0]
 
+function newSelectionColor(bgc) {
+    if(bgc === "rgb(255, 245, 214)")  // today
+        return "#c0e7dc"
+    else if (bgc === "rgb(192, 231, 220)")  // today + selected
+        return "#fff5d6"
+    else if (bgc === "")
+        return "#01bbef25"
+    else
+        return ""
+}
+
 function updateCalendar() {
+    currSelected = null
+
     title.innerText = `${monthNames[currMonth]}, ${currYear}`
 
     // Generate calender days
@@ -55,20 +69,20 @@ function updateCalendar() {
         }
         dayDiv.classList.add("day-div")
         dayDiv.innerHTML = `<span class="day-text">${i}</span>`
-        dayDiv.addEventListener('click', (e) => {
-            let bgc = e.target.style["background-color"]
-            if(bgc === "rgb(255, 245, 214)")  // today
-                e.target.style["background-color"] = "#c0e7dc"
-            else if (bgc === "rgb(192, 231, 220)")  // today + selected
-                e.target.style["background-color"] = "#fff5d6"
-            else if (bgc === "")
-                e.target.style["background-color"] = "#01bbef25"
-            else
-                e.target.style["background-color"] = ""
-        })
-
+        
         calendar.appendChild(dayDiv)
     }
+
+    calendar.addEventListener('click', (e) => {
+        if (e.target.classList.contains("day-div")) {
+            if (currSelected != null) {
+                currSelected.style["background-color"] = newSelectionColor(currSelected.style["background-color"])
+            }
+
+            e.target.style["background-color"] = newSelectionColor(e.target.style["background-color"])
+            currSelected = e.target
+        }
+    })
 
     if (currMonth == today.getMonth() && currYear == today.getFullYear()) {
         todayDiv.style["background-color"] = "#fff5d6"

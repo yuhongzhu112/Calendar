@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div class="main-cont">
+            <div class="func-panel">
+                <div class="func-area">
+                    <ul>
+                        <li>func1</li>
+                        <li>func1</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="calendar-panel">
+                <div class="calendar-title-bar">
+
+                    <div class="calendar-btns">
+                        <div>
+                            <button class="btn btn-prev">Prev</button>
+                            <button class="btn btn-next">Next</button>
+                        </div>
+
+                        <button class="btn btn-today">Today</button>
+                    </div>
+                    
+
+                    <span class="title-date"></span>
+                    
+                    <div class="add-event">
+                        <button class="btn btn-add-event">Add Event</button>
+                    </div>
+                </div>
+
+                <div class="week-day"></div>
+                <div class="calendar"></div>
+            </div>
+        </div>
+
+
+        <div class="modal">
+            <span>Adding Event</span>
+            <button class="modal-btn-cancel">&times;</button>
+            <p>Content goes here</p>
+        </div>
+        
+        <div id="overlay"></div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

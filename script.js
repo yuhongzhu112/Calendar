@@ -26,16 +26,6 @@ let prevbtn = document.getElementsByClassName("btn-prev")[0]
 let nextbtn = document.getElementsByClassName("btn-next")[0]
 let todaybtn = document.getElementsByClassName("btn-today")[0]
 
-function newSelectionColor(bgc) {
-    if(bgc === "rgb(255, 245, 214)")  // today
-        return "#c0e7dc"
-    else if (bgc === "rgb(192, 231, 220)")  // today + selected
-        return "#fff5d6"
-    else if (bgc === "")
-        return "#01bbef25"
-    else
-        return ""
-}
 
 function updateCalendar() {
     currSelected = null
@@ -73,17 +63,7 @@ function updateCalendar() {
         calendar.appendChild(dayDiv)
     }
 
-    calendar.addEventListener('click', (e) => {
-        if (e.target.classList.contains("day-div")) {
-            if (currSelected != null) {
-                currSelected.style["background-color"] = newSelectionColor(currSelected.style["background-color"])
-            }
-
-            e.target.style["background-color"] = newSelectionColor(e.target.style["background-color"])
-            currSelected = e.target
-        }
-    })
-
+    // Mark today
     if (currMonth == today.getMonth() && currYear == today.getFullYear()) {
         todayDiv.style["background-color"] = "#fff5d6"
     }
@@ -131,6 +111,28 @@ for (let i = 0; i < 7; i++) {
 // Calendar body
 updateCalendar()
 
+function newSelectionColor(bgc) {
+    if(bgc === "rgb(255, 245, 214)")  // today
+        return "#c0e7dc"
+    else if (bgc === "rgb(192, 231, 220)")  // today + selected
+        return "#fff5d6"
+    else if (bgc === "")
+        return "#01bbef25"
+    else
+        return ""
+}
+
+calendar.addEventListener('click', (e) => {
+    if (e.target.classList.contains("day-div")) {
+        if (currSelected != null) {
+            currSelected.style["background-color"] = newSelectionColor(currSelected.style["background-color"])
+        }
+
+        e.target.style["background-color"] = newSelectionColor(e.target.style["background-color"])
+        currSelected = e.target
+    }
+})
+
 
 // Overlay & Modal
 let overlay = document.getElementById("overlay")
@@ -139,11 +141,29 @@ let addEventBtn = document.getElementsByClassName("btn-add-event")[0]
 let modalCancelBtn = document.getElementsByClassName("modal-btn-cancel")[0]
 
 addEventBtn.addEventListener('click', () => {
-    overlay.classList.add("active")
-    addEventModal.classList.add("active")
+    if (!currSelected) {
+        alert("Please first select a date.")
+    } else {
+        overlay.classList.add("active")
+        addEventModal.classList.add("active")
+    }
+
 })
 
 modalCancelBtn.addEventListener('click', () => {
     overlay.classList.remove("active")
     addEventModal.classList.remove("active")
 })
+
+let div = document.getElementsByClassName("day-div")[0]
+let item = document.createElement("div")
+item.classList.add("calendar-item")
+let itemt = document.createElement("span")
+itemt.classList.add("calendar-item-time")
+let itemEvent = document.createElement("span")
+itemEvent.classList.add("calendar-item-event")
+itemt.innerText = "12"
+itemEvent.innerText = "Have lunch"
+item.appendChild(itemt)
+item.appendChild(itemEvent)
+div.appendChild(item)

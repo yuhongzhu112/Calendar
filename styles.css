@@ -49,7 +49,7 @@ html, body {
 
 .calendar-title-bar {
     height: 60px;
-    width: 90%;
+    width: 95%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -106,7 +106,7 @@ html, body {
 .week-day {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    width: 90%;
+    width: 95%;
     background-color: #dddde3;
     border: 1px solid #dddde3;
     grid-gap: 1px;
@@ -124,23 +124,40 @@ html, body {
 }
 
 .calendar {
-    width: 90%;
+    width: 95%;
     aspect-ratio: 1.5/1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-gap: 1px;
     background-color: #dddde3;
     border: 1px solid #dddde3;
+    
 }
 
 .day-div {
     background-color: #fbfbff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .day-text {
     display: block;
-    margin: 7px;
+    padding: 5px 10px;
     pointer-events: none;
+}
+
+
+.calendar-item-time {
+    background-color: #01baef;
+    border-radius: 30%;
+    padding: 1px 4px;
+    margin: 0 4px;
+    color: #fbfbff;
+}
+
+.calendar-item-event {
 }
 
 .add-event {
